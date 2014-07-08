@@ -10,9 +10,9 @@ values.
 from urllib import urlencode
 from urllib2 import urlopen
 
-from django.utils import simplejson
+import simplejson
 
-from social_auth.backends import BaseOAuth2, OAuthBackend, USERNAME
+from social_auth.backends import BaseOAuth2, OAuthBackend
 
 
 MEETUP_SERVER = 'secure.meetup.com'
@@ -36,7 +36,7 @@ class MeetupBackend(OAuthBackend):
             first_name = full_name
             last_name = ''
         data = {
-            USERNAME: '',
+            'username': full_name, # Duplicates might be happening, somehow extend this?
             'email': response.get('email', ''),  # requested but not always supplied
             'fullname': full_name,
             'first_name': first_name,
